@@ -12,6 +12,7 @@ defmodule ExStatsD do
   """
 
   alias ExStatsD.Config
+  require Logger
   use GenServer
 
   @default_port 8125
@@ -318,7 +319,9 @@ defmodule ExStatsD do
       {:ok, socket} ->
         :gen_udp.send(socket, state.host, state.port, pkt)
         :gen_udp.close(socket)
-      {:error, _reason} -> :error
+      {:error, reason} ->
+        Logger.warn "ExStatsD cannot open UDP socket: #{inspect reason}"
+        :error
     end
     {:noreply, state}
   end

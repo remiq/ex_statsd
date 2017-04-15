@@ -3,7 +3,7 @@ defmodule ExStatsD.Mixfile do
 
   def project do
     [app: :ex_statsd,
-     version: "0.5.4",
+     version: "0.5.5",
      elixir: "~> 1.0",
      package: package(),
      deps: deps(),
@@ -30,7 +30,7 @@ defmodule ExStatsD.Mixfile do
     [applications: []]
   end
   def application(_) do
-    [applications: [],
+    [applications: [:logger],
      mod: {ExStatsD.Application, []}]
   end
 
